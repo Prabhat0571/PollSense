@@ -1,0 +1,24 @@
+.progress-bar-bg{
+    background-color: #7565d9 
+}
+.option-border{
+    border-color: #7565d9 !important
+}
+.question{
+    background: linear-gradient(90deg, #343434 0%, #6E6E6E 100%);
+
+}
+
+  
+.landing-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .landing-description {
+    margin-bottom: 30px;
+    color: #6c757d;
+  }
+  .spinner{
+    color: rgba(80, 14, 206, 1);
+  }

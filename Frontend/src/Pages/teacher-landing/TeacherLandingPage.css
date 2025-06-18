@@ -1,0 +1,30 @@
+.sNo {
+  background: linear-gradient(243.94deg, #8F64E1 -50.82%, #4E377B 216.33%);
+  border-radius: 100%;
+  width: 30px;
+  height: auto;
+  color: white;
+  text-align: center;
+}
+input[type="radio"]:checked {
+  background-color: #7565d9;
+  border-color: #7565d9;
+}
+
+.add-options {
+  color: rgba(143, 100, 225, 1) !important;
+  border: 1px solid #7565d9 !important;
+}
+.option-input{
+  background-color: rgba(242, 242, 242, 1) !important;
+
+}
+#question{
+  background-color: rgba(242, 242, 242, 1) !important;
+
+}
+.ask-question {
+  float: right;
+  background: linear-gradient(99.18deg, #8F64E1 -46.89%, #1D68BD 223.45%);
+  color: #ffffff !important;
+}

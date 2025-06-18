@@ -1,0 +1,59 @@
+.celebration-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.celebration-popup {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem 3rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  text-align: center;
+  position: relative;
+  min-width: 300px;
+  animation: popIn 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.confetti {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  pointer-events: none;
+  background: none;
+}
+
+.confetti:before, .confetti:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 8px;
+  height: 30px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #ffec65, #ff65a3, #65ffb1, #65a3ff);
+  animation: confetti-fall 1s linear infinite;
+}
+
+.confetti:after {
+  left: 60%;
+  animation-delay: 0.3s;
+}
+
+@keyframes confetti-fall {
+  0% { top: 0; opacity: 1; transform: rotate(0deg); }
+  100% { top: 100px; opacity: 0; transform: rotate(360deg); }
+} 

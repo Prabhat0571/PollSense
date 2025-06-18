@@ -1,0 +1,17 @@
+.landing-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.landing-description {
+  margin-bottom: 30px;
+  color: #6c757d;
+}
+
+.name-label {
+  text-align: left !important;
+}
+
+.name-input {
+  background-color: rgba(242, 242, 242, 1) !important;
+} 

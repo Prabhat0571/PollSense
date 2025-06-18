@@ -1,0 +1,47 @@
+.tab-item {
+  color: rgba(90, 102, 209, 1) !important;
+}
+
+
+.current-user {
+  background: rgba(143, 100, 225, 1);
+  color: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+  padding: 8px;
+  width: 60%;
+  margin-left: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+
+.other-user {
+  background-color: rgba(58,
+      58,
+      59,
+      1);
+  color: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+  padding: 8px;
+  width: 60%;
+  margin-right: auto;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  text-align: left;
+  padding: 8px;
+}
+
+td button {
+  padding: 0px !important;
+}
+
