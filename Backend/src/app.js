@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 // CORS configuration for production
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? ['http://localhost:5173'] // Replace with your frontend URL
+    ? ['https://prabhat-assignment.onrender.com/'] // Replace with your frontend URL
     : '*',
   methods: ['GET', 'POST'],
   credentials: true
