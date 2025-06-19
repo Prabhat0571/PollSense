@@ -3,7 +3,6 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-
 import { connectDB } from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import pollRoutes from './routes/pollRoutes.js';
@@ -16,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 
 // CORS configuration for production
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'development' 
+  origin: process.env.NODE_ENV === 'production' 
     ? ['http://localhost:5173'] // Replace with your frontend URL
     : '*',
   methods: ['GET', 'POST'],
@@ -40,5 +39,5 @@ const io = new Server(httpServer, {
 handleSockets(io);
 
 httpServer.listen(PORT, () => {
-  console.log(`Server is running at http://0.0.0.0:${PORT}`);
+  console.log(`Server is running at http://localhost:${PORT}`);
 });

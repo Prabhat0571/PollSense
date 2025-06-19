@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 export const connectDB = async () => {
-  const DB = process.env.MONGODB_URI || 'mongodb://localhost:27017/pollingApp';
+  const DB = process.env.MONGO_URI 
 
   try {
     await mongoose.connect(DB);
