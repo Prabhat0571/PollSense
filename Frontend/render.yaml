@@ -6,4 +6,4 @@ services:
     staticPublishPath: ./dist
     envVars:
       - key: VITE_API_BASE_URL
-        value: https://your-backend-url.onrender.com 
+        value: https://intervue-io-task-main.onrender.com
