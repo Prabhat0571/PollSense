@@ -16,8 +16,8 @@ const PORT = process.env.PORT || 3000;
 
 // CORS configuration for production
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-frontend-url.onrender.com'] // Replace with your frontend URL
+  origin: process.env.NODE_ENV === 'development' 
+    ? ['http://localhost:5173'] // Replace with your frontend URL
     : '*',
   methods: ['GET', 'POST'],
   credentials: true
@@ -40,5 +40,5 @@ const io = new Server(httpServer, {
 handleSockets(io);
 
 httpServer.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+  console.log(`Server is running at http://0.0.0.0:${PORT}`);
 });
