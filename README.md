@@ -1,4 +1,4 @@
-# Intervue Poll System
+Poll System
 
 A full-stack live polling system for teachers and students, built with React (Vite), Node.js/Express, Socket.io, and MongoDB (Atlas). Teachers can create live polls, students can participate and see results in real-time.
 
