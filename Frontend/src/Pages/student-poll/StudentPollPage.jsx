@@ -21,10 +21,16 @@ const StudentPollPage = () => {
   const [pollOptions, setPollOptions] = useState([]);
   const [pollId, setPollId] = useState("");
   const [kickedOut, setKickedOut] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [optionAnimations, setOptionAnimations] = useState({});
   const timerRef = useRef(null);
   const navigate = useNavigate();
   const [showCelebration, setShowCelebration] = useState(false);
   const [chatPopup, setChatPopup] = useState(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const totalVotes = Object.values(votes).reduce((a, b) => a + b, 0);
 
@@ -129,139 +135,159 @@ const StudentPollPage = () => {
   };
 
   return (
-    <>
+    <div className="student-poll-container">
       <ChatPopover />
+      
       {kickedOut ? (
-        <div>kicked</div>
+        <div className="kicked-out-screen">
+          <div className="kicked-out-content modern-card scale-in">
+            <div className="kicked-out-icon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+            <h2>Session Ended</h2>
+            <p>You have been removed from the polling session by the teacher.</p>
+          </div>
+        </div>
       ) : (
         <>
-          {" "}
           {pollQuestion === "" && timeLeft === 0 && (
-            <div className="d-flex justify-content-center align-items-center vh-100 w-75  mx-auto">
-              <div className="student-landing-container text-center">
-                <button className="btn btn-sm intervue-btn mb-5">
-                  <img src={stars} className="px-1" alt="" />
-                  Intervue Poll
-                </button>
-                <br />
-                <div
-                  className="spinner-border text-center spinner"
-                  role="status"
-                >
-                  <span className="visually-hidden">Loading...</span>
+            <div className="waiting-screen">
+              <div className={`waiting-content ${mounted ? 'fade-in' : ''}`}>
+                <div className="brand-logo modern-btn float">
+                  <img src={stars} alt="PollSense" />
+                  <span className="text-gradient">PollSense</span>
                 </div>
-                <h3 className="landing-title">
-                  <b>Wait for the teacher to ask questions..</b>
-                </h3>
+                
+                <div className="waiting-animation">
+                  <div className="spinner-modern"></div>
+                  <div className="pulse-rings">
+                    <div className="pulse-ring"></div>
+                    <div className="pulse-ring"></div>
+                    <div className="pulse-ring"></div>
+                  </div>
+                </div>
+                
+                <h2 className="waiting-title">
+                  Waiting for <span className="text-gradient">Questions</span>
+                </h2>
+                <p className="waiting-description">
+                  Your teacher is preparing the next poll question. Stay tuned!
+                </p>
               </div>
             </div>
           )}
+
           {pollQuestion !== "" && (
-            <div className="container mt-5 w-50">
-              <div className="d-flex align-items-center mb-4">
-                <h5 className="m-0 pe-5">Question</h5>
-                <img
-                  src={stopwatch}
-                  width="15px"
-                  height="auto"
-                  alt="Stopwatch"
-                />
-                <span className="ps-2 ml-2 text-danger">{timeLeft}s</span>
+            <div className={`poll-active-screen ${mounted ? 'slide-in-left' : ''}`}>
+              <div className="poll-header">
+                <div className="question-badge">
+                  <span>Question</span>
+                </div>
+                <div className="timer-display">
+                  <img src={stopwatch} alt="Timer" />
+                  <span className={`timer-count ${timeLeft <= 10 ? 'urgent' : ''}`}>
+                    {timeLeft}s
+                  </span>
+                </div>
               </div>
-              <div className="card">
-                <div className="card-body">
-                  <h6 className="question py-2 ps-2 float-left rounded text-white">
+
+              <div className="poll-content modern-card">
+                <div className="question-section">
+                  <h2 className="poll-question">
                     {pollQuestion}?
-                  </h6>
-                  <div className="list-group mt-4">
-                    {pollOptions.map((option) => (
-                      <div
-                        key={option.id}
-                        className={`list-group-item rounded m-1 ${
-                          selectedOption === option.text
-                            ? "border option-border"
-                            : ""
-                        }`}
-                        style={{
-                          padding: "10px",
-                          cursor:
-                            submitted || timeLeft === 0
-                              ? "not-allowed"
-                              : "pointer",
-                        }}
-                        onClick={() => {
-                          if (!submitted && timeLeft > 0) {
-                            handleOptionSelect(option.text);
-                          }
-                        }}
-                      >
-                        <div className="d-flex justify-content-between align-items-center">
-                          <span
-                            className={`ml-2 text-left ${
-                              submitted ? "font-weight-bold" : ""
-                            }`}
-                          >
-                            {option.text}
+                  </h2>
+                </div>
+
+                <div className="options-section">
+                  {pollOptions.map((option, index) => (
+                    <div
+                      key={option.id}
+                      className={`option-card modern-card hover-lift ${
+                        selectedOption === option.text ? "selected" : ""
+                      } ${submitted ? "submitted" : ""}`}
+                      style={{
+                        animationDelay: `${index * 0.1}s`,
+                        cursor: submitted || timeLeft === 0 ? "not-allowed" : "pointer",
+                      }}
+                      onClick={() => {
+                        if (!submitted && timeLeft > 0) {
+                          handleOptionSelect(option.text);
+                        }
+                      }}
+                    >
+                      <div className="option-content">
+                        <div className="option-text">
+                          <span className="option-letter">
+                            {String.fromCharCode(65 + index)}
                           </span>
-                          {submitted && (
-                            <span className="text-right">
-                              {Math.round(
-                                calculatePercentage(votes[option.text] || 0)
-                              )}
-                              %
-                            </span>
-                          )}
+                          <span className="option-label">{option.text}</span>
                         </div>
+                        
                         {submitted && (
-                          <div className="progress mt-2">
-                            <div
-                              className="progress-bar progress-bar-bg"
-                              role="progressbar"
-                              style={{
-                                width: `${calculatePercentage(
-                                  votes[option.text] || 0
-                                )}%`,
-                              }}
-                              aria-valuenow={votes[option.text] || 0}
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                            ></div>
+                          <div className="option-result">
+                            <span className="result-percentage">
+                              {Math.round(calculatePercentage(votes[option.text] || 0))}%
+                            </span>
                           </div>
                         )}
                       </div>
-                    ))}
+                      
+                      {submitted && (
+                        <div className="option-progress">
+                          <div className="modern-progress">
+                            <div
+                              className="modern-progress-bar"
+                              style={{
+                                width: `${calculatePercentage(votes[option.text] || 0)}%`,
+                                animationDelay: `${index * 0.2}s`,
+                              }}
+                            ></div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {!submitted && selectedOption && timeLeft > 0 && (
+                  <div className="submit-section scale-in">
+                    <button
+                      className="submit-button modern-btn glow"
+                      onClick={handleSubmit}
+                    >
+                      <span>Submit Answer</span>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
                   </div>
-                </div>
+                )}
+
+                {submitted && (
+                  <div className="waiting-next fade-in">
+                    <div className="waiting-icon">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2V6M12 18V22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M2 12H6M18 12H22M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                    <p>Waiting for the next question...</p>
+                  </div>
+                )}
               </div>
-
-              {!submitted && selectedOption && timeLeft > 0 && (
-                <div className="d-flex  justify-content-end align-items-center">
-                  <button
-                    type="submit"
-                    className="btn continue-btn my-3 w-25"
-                    onClick={handleSubmit}
-                  >
-                    Submit
-                  </button>
-                </div>
-              )}
-
-              {submitted && (
-                <div className="mt-5">
-                  <h6 className="text-center">
-                    Wait for the teacher to ask a new question...
-                  </h6>
-                </div>
-              )}
             </div>
           )}
-          {showCelebration && <CelebrationPopup onClose={() => setShowCelebration(false)} />}
+
+          {showCelebration && (
+            <CelebrationPopup onClose={() => setShowCelebration(false)} />
+          )}
           {chatPopup && (
             <ChatMessagePopup message={chatPopup} onClose={() => setChatPopup(null)} />
           )}
         </>
       )}
-    </>
+    </div>
   );
 };
 

@@ -8,6 +8,7 @@ import PollHistoryPage from "./Pages/poll-history/PollHistory";
 import TeacherProtectedRoute from "./components/route-protect/TeacherProtect";
 import StudentProtectedRoute from "./components/route-protect/StudentProtect";
 import { DarkModeProvider } from "./contexts/DarkModeContext";
+import "./styles/global.css";
 
 function App() {
   return (

@@ -1,30 +1,413 @@
-.sNo {
-  background: linear-gradient(243.94deg, #8F64E1 -50.82%, #4E377B 216.33%);
-  border-radius: 100%;
-  width: 30px;
-  height: auto;
-  color: white;
+/* Modern Teacher Landing Page Styles */
+
+.teacher-landing-container {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding: 20px 0;
+}
+
+/* Header Section */
+.teacher-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.history-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.history-button img {
+  width: 18px;
+  height: 18px;
+}
+
+.brand-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: var(--gradient-card);
+  border: 1px solid var(--border-color);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.brand-logo img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Main Content */
+.teacher-content {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 20px;
+}
+
+/* Welcome Section */
+.welcome-section {
   text-align: center;
-}
-input[type="radio"]:checked {
-  background-color: #7565d9;
-  border-color: #7565d9;
+  margin-bottom: 3rem;
 }
 
-.add-options {
-  color: rgba(143, 100, 225, 1) !important;
-  border: 1px solid #7565d9 !important;
+.teacher-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
 }
-.option-input{
-  background-color: rgba(242, 242, 242, 1) !important;
 
+.teacher-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+  padding: 8px 16px;
+  background: var(--bg-secondary);
+  border-radius: 20px;
+  display: inline-flex;
 }
-#question{
-  background-color: rgba(242, 242, 242, 1) !important;
 
+.teacher-label {
+  font-weight: 600;
+  color: var(--text-secondary);
 }
-.ask-question {
-  float: right;
-  background: linear-gradient(99.18deg, #8F64E1 -46.89%, #1D68BD 223.45%);
-  color: #ffffff !important;
+
+.teacher-name {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.teacher-description {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Error Alert */
+.error-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 2rem;
+  background: rgba(220, 53, 69, 0.1);
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  border-radius: 12px;
+  color: var(--danger-color);
+}
+
+.error-alert svg {
+  flex-shrink: 0;
+}
+
+/* Section Styles */
+.question-section,
+.options-section {
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-header h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.options-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Timer Selector */
+.timer-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timer-selector label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.timer-select {
+  min-width: 120px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+/* Question Input */
+.question-input-group {
+  position: relative;
+}
+
+.question-textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.character-count {
+  position: absolute;
+  bottom: -25px;
+  right: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.character-count .warning {
+  color: var(--warning-color);
+  font-weight: 600;
+}
+
+/* Options List */
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  transition: all var(--transition-normal);
+}
+
+.option-item:hover {
+  background: var(--bg-tertiary);
+  transform: translateX(5px);
+}
+
+.option-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--primary-color);
+  color: var(--text-inverse);
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.option-input {
+  flex: 1;
+  margin: 0;
+}
+
+/* Custom Radio Buttons */
+.correct-selector {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.radio-label input[type="radio"] {
+  display: none;
+}
+
+.radio-custom {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  position: relative;
+  transition: all var(--transition-normal);
+}
+
+.radio-custom.correct {
+  border-color: var(--accent-color);
+}
+
+.radio-custom.incorrect {
+  border-color: var(--danger-color);
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom.correct {
+  background: var(--accent-color);
+  color: white;
+}
+
+.radio-label input[type="radio"]:checked + .radio-custom.incorrect {
+  background: var(--danger-color);
+  color: white;
+}
+
+/* Add Option Button */
+.add-option-btn {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-size: 0.9rem;
+}
+
+/* Action Section */
+.action-section {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.create-poll-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  min-width: 200px;
+}
+
+.create-poll-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.create-poll-btn .spinner-modern {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .teacher-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .header-actions {
+    order: 2;
+  }
+
+  .brand-section {
+    order: 1;
+  }
+
+  .teacher-content {
+    padding: 0 16px;
+  }
+
+  .teacher-title {
+    font-size: 2rem;
+  }
+
+  .question-section,
+  .options-section {
+    padding: 1.5rem;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .timer-selector {
+    align-self: flex-end;
+  }
+
+  .option-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .correct-selector {
+    align-self: flex-end;
+  }
+
+  .create-poll-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .teacher-title {
+    font-size: 1.75rem;
+  }
+
+  .question-section,
+  .options-section {
+    padding: 1rem;
+  }
+
+  .option-item {
+    padding: 0.75rem;
+  }
+
+  .brand-logo {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .history-button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
 }

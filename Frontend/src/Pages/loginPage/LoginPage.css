@@ -1,75 +1,255 @@
-.poll-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
+/* Modern Login Page Styles */
 
-.poll-description {
-  margin-bottom: 30px;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.role-btn {
+.login-page-container {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 20px;
-  border-radius: 10px;
-  background-color: white;
-  border: 2px solid #ddd;
+}
+
+/* Background Elements */
+.login-bg-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating-shape {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  opacity: 0.1;
+  animation: float 6s ease-in-out infinite;
+}
+
+.shape-1 {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  width: 150px;
+  height: 150px;
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.shape-3 {
+  width: 100px;
+  height: 100px;
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+/* Main Content */
+.login-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Header Section */
+.login-header {
+  margin-bottom: 3rem;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 2rem;
+  padding: 12px 24px;
+  background: var(--gradient-card);
+  border: 1px solid var(--border-color);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.brand-logo img {
+  width: 24px;
+  height: 24px;
+}
+
+.login-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.login-description {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Role Selection */
+.role-selection {
+  margin: 3rem 0;
+}
+
+.role-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.role-card {
+  padding: 2rem;
+  text-align: center;
   cursor: pointer;
-  margin-bottom: 20px;
-  width: 45%;
+  transition: all var(--transition-normal);
+  position: relative;
+  border: 2px solid transparent;
 }
 
-.role-btn.active {
-  border-color: #6f42c1;
+.role-card:hover {
+  border-color: var(--primary-color);
 }
 
-.role-btn p {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 500;
+.role-card.selected {
+  border-color: var(--primary-color);
+  background: var(--gradient-primary);
+  color: var(--text-inverse);
+  transform: translateY(-5px) scale(1.02);
 }
 
-.role-btn span {
-  display: block;
+.role-card.selected .role-icon {
+  color: var(--text-inverse);
+}
+
+.role-icon {
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+  transition: color var(--transition-normal);
+}
+
+.role-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.role-card p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.role-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.role-features span {
   font-size: 0.9rem;
-  color: #6c757d;
+  opacity: 0.8;
+  padding: 0.25rem 0;
 }
 
-.intervue-btn {
-  background: linear-gradient(90deg, #7565D9 0%, #4D0ACD 100%);
-  align-content: center;
-  color: white !important;
-  border-radius: 25px !important;
-  font-size: 1rem !important;
+/* Login Actions */
+.login-actions {
+  margin-top: 3rem;
 }
 
-.continue-btn {
-  background: linear-gradient(99.18deg, #8F64E1 -46.89%, #1D68BD 223.45%);
-  color: white !important;
-  border-radius: 25px !important;
-  padding: 10px 30px !important;
-  font-size: 1rem !important;
+.continue-button {
+  font-size: 1.1rem;
+  padding: 16px 32px;
+  min-width: 200px;
+  position: relative;
 }
 
-/* Dark mode styles */
-body.dark-mode .poll-title {
-  color: #ffffff;
+.continue-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
-body.dark-mode .poll-description {
-  color: rgba(255, 255, 255, 0.7);
+.continue-button .spinner-modern {
+  width: 20px;
+  height: 20px;
+  border-width: 2px;
 }
 
-body.dark-mode .role-btn {
-  background-color: #2d2d2d;
-  border-color: #555;
-  color: #ffffff;
+/* Dark Mode Adjustments */
+.dark-mode .floating-shape {
+  opacity: 0.05;
 }
 
-body.dark-mode .role-btn span {
-  color: rgba(255, 255, 255, 0.7);
+.dark-mode .role-card.selected {
+  background: var(--gradient-primary);
+  color: var(--text-inverse);
 }
 
-body.dark-mode .role-btn.active {
-  border-color: #8F64E1;
-  background: linear-gradient(135deg, #8F64E1 0%, #4E377B 100%);
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-page-container {
+    padding: 16px;
+  }
+
+  .login-title {
+    font-size: 2rem;
+  }
+
+  .login-description {
+    font-size: 1rem;
+  }
+
+  .role-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .role-card {
+    padding: 1.5rem;
+  }
+
+  .continue-button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .floating-shape {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-title {
+    font-size: 1.75rem;
+  }
+
+  .brand-logo {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .role-card {
+    padding: 1.25rem;
+  }
+
+  .role-card h3 {
+    font-size: 1.25rem;
+  }
 } 

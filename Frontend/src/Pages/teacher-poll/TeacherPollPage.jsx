@@ -5,6 +5,7 @@ import ChatPopover from "../../components/chat/ChatPopover";
 import { useNavigate } from "react-router-dom";
 import eyeIcon from "../../assets/eye.svg";
 import ChatMessagePopup from "../student-poll/ChatMessagePopup";
+import "./TeacherPollPage.css";
 let apiUrl = import.meta.env.VITE_API_BASE_URL;
 
 const socket = io(apiUrl);
@@ -15,7 +16,12 @@ const TeacherPollPage = () => {
   const [votes, setVotes] = useState({});
   const [totalVotes, setTotalVotes] = useState(0);
   const [chatPopup, setChatPopup] = useState(null);
-  const navigate = new useNavigate();
+  const [mounted, setMounted] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   useEffect(() => {
     socket.on("pollCreated", (pollData) => {
       setPollQuestion(pollData.question);
@@ -54,81 +60,134 @@ const TeacherPollPage = () => {
   };
 
   return (
-    <>
-      <button
-        className="btn rounded-pill ask-question poll-history px-4 m-2"
-        onClick={handleViewPollHistory}
-      >
-        <img src={eyeIcon} alt=""/>
-        View Poll history
-      </button>
-      <br />
-      <div className="container mt-5 w-50">
-        <h3 className="mb-4 text-center">Poll Results</h3>
+    <div className="teacher-poll-container">
+      <div className={`teacher-poll-dashboard ${mounted ? 'fade-in' : ''}`}>
+        {/* Header Section */}
+        <div className="dashboard-header">
+          <div className="header-content">
+            <h1 className="dashboard-title">
+              <span className="text-gradient">Live Poll</span> Dashboard
+            </h1>
+            <div className="header-actions">
+              <button
+                className="action-button modern-btn secondary hover-lift"
+                onClick={handleViewPollHistory}
+              >
+                <img src={eyeIcon} alt="History" />
+                <span>Poll History</span>
+              </button>
+            </div>
+          </div>
+        </div>
 
-        {pollQuestion && (
-          <>
-            <div className="card">
-              <div className="card-body">
-                <h6 className="question py-2 ps-2 text-left rounded text-white">
-                  {pollQuestion} ?
-                </h6>
-                <div className="list-group mt-4">
-                  {pollOptions.map((option) => (
+        {/* Main Content */}
+        <div className="dashboard-content">
+          {pollQuestion ? (
+            <div className="poll-results-section">
+              {/* Poll Question Card */}
+              <div className="question-card modern-card slide-in-left">
+                <div className="question-header">
+                  <div className="question-badge">
+                    <span>Current Question</span>
+                  </div>
+                  <div className="live-indicator">
+                    <div className="live-dot"></div>
+                    <span>LIVE</span>
+                  </div>
+                </div>
+                <h2 className="current-question">{pollQuestion}?</h2>
+              </div>
+
+              {/* Results Dashboard */}
+              <div className="results-dashboard">
+                <div className="results-header">
+                  <h3>Real-time Results</h3>
+                  <div className="total-votes">
+                    <span className="votes-count">{totalVotes}</span>
+                    <span className="votes-label">Total Votes</span>
+                  </div>
+                </div>
+
+                <div className="results-grid">
+                  {pollOptions.map((option, index) => (
                     <div
                       key={option.id}
-                      className="list-group-item rounded m-2"
+                      className="result-card modern-card hover-lift"
+                      style={{ animationDelay: `${index * 0.1}s` }}
                     >
-                      <div className="d-flex justify-content-between align-items-center">
-                        <span>{option.text}</span>
-                        <span>
-                          {Math.round(
-                            calculatePercentage(votes[option.text] || 0)
-                          )}
-                          %
-                        </span>
+                      <div className="result-header">
+                        <div className="option-info">
+                          <span className="option-letter">
+                            {String.fromCharCode(65 + index)}
+                          </span>
+                          <span className="option-text">{option.text}</span>
+                        </div>
+                        <div className="result-stats">
+                          <span className="percentage">
+                            {Math.round(calculatePercentage(votes[option.text] || 0))}%
+                          </span>
+                          <span className="vote-count">
+                            {votes[option.text] || 0} votes
+                          </span>
+                        </div>
                       </div>
-                      <div className="progress mt-2">
-                        <div
-                          className="progress-bar progress-bar-bg"
-                          role="progressbar"
-                          style={{
-                            width: `${calculatePercentage(
-                              votes[option.text] || 0
-                            )}%`,
-                          }}
-                          aria-valuenow={votes[option.text] || 0}
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        ></div>
+                      
+                      <div className="result-progress">
+                        <div className="modern-progress">
+                          <div
+                            className="modern-progress-bar"
+                            style={{
+                              width: `${calculatePercentage(votes[option.text] || 0)}%`,
+                              animationDelay: `${index * 0.2}s`,
+                            }}
+                          ></div>
+                        </div>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
-            <div>
-              <button
-                className="btn rounded-pill ask-question px-4 m-2"
-                onClick={askNewQuestion}
-              >
-                + Ask a new question
-              </button>
-            </div>
-          </>
-        )}
 
-        {!pollQuestion && (
-          <div className="text-muted">
-            Waiting for the teacher to start a new poll...
-          </div>
-        )}
-        <ChatPopover />
-        {chatPopup && (
-          <ChatMessagePopup message={chatPopup} onClose={() => setChatPopup(null)} />
-        )}
+              {/* Action Section */}
+              <div className="action-section scale-in">
+                <button
+                  className="new-question-button modern-btn primary glow"
+                  onClick={askNewQuestion}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 5V19M5 12H19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span>Ask New Question</span>
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="waiting-state">
+              <div className="waiting-content modern-card">
+                <div className="waiting-icon">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 12H16M8 8H16M8 16H12M6 20H18C19.1046 20 20 19.1046 20 18V6C20 4.89543 19.1046 4 18 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <h3>Ready to Start Polling</h3>
+                <p>Create a new poll to see live results here</p>
+                <button
+                  className="start-polling-button modern-btn primary"
+                  onClick={askNewQuestion}
+                >
+                  <span>Create First Poll</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </>
+
+      <ChatPopover />
+      {chatPopup && (
+        <ChatMessagePopup message={chatPopup} onClose={() => setChatPopup(null)} />
+      )}
+    </div>
   );
 };
 

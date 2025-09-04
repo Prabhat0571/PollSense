@@ -29,7 +29,7 @@ connectDB();
 
 app.use('/api/auth', authRoutes);
 app.use('/api/polls', pollRoutes);
-app.get('/', (req, res) => res.send('🎯 Intervue Poll System API'));
+app.get('/', (req, res) => res.send('🎯 PollSense API'));
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
